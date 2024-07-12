@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Cost</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <script src="./assets/js/app.js" defer></script>
+</head>
+<body>
+    <div class="split-cost-wrapper">
+        <h2>Split Cost</h2>
+
+        <div class="unsettled-wrapper">
+            <h3>Unsettled Amount per user</h3>
+            <div>
+                <div class="amount">$60.00</div>
+                <button id="settleNowBtn">SETTLE NOW</button>
+            </div>
+        </div>
+
+        <div class="users-wrapper">
+            <div><img src="https://randomuser.me/api/portraits/men/90.jpg" alt="" /></div>
+            <div><img src="https://randomuser.me/api/portraits/men/33.jpg" alt="" /></div>
+            <div><img src="https://randomuser.me/api/portraits/men/81.jpg" alt="" /></div>
+            <div><img src="https://randomuser.me/api/portraits/men/54.jpg" alt="" /></div>
+        </div>
+
+        <form>
+            <div class="form-item">
+                <label>Description<span>*</span></label>
+                <input type="text" name="description" id="description">
+            </div>
+            <div class="form-row">
+                <div class="form-item">
+                    <label>Amount$<span>*</span></label>
+                    <input type="text" name="amount" id="amount">
+                </div>
+                <input type="submit" value="Add new">
+            </div>
+        </form>
+
+        <div class="expenses-wrapper">
+            <div class="expenses-item">
+                <div>
+                    <span>Woolworths Shopping</span>
+                    <span>$120.00</span>
+                </div>
+                <div class="date">12 March 2024 02:30:00 </div>
+            </div>
+            <div class="expenses-item">
+                <div>
+                    <span>Woolworths Shopping</span>
+                    <span>$120.00</span>
+                </div>
+                <div class="date">12 March 2024 02:30:00 </div>
+            </div>
+        </div>
+
+        <div class="expenses-footer">
+            <button>View All</button>
+        </div>
+
+    </div>
+</body>
+</html>
