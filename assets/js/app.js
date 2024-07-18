@@ -17,6 +17,7 @@ function SplitCostApp() {
     this.unsettledAmount = 20.00;
     this.users = [];
     this.expenses = [];
+    
 
     this.displayUnsettledAmount = function() {
         document.querySelector(".amount").textContent = `$${this.unsettledAmount}`; 
@@ -25,6 +26,8 @@ function SplitCostApp() {
     this.addUser = function(name, email, mobile, photo) {
         const user = new User(name, email, mobile, photo);
         this.users.push(user);
+
+        this.displayUsers();
     }
 
     this.displayUsers = function() {
@@ -34,9 +37,59 @@ function SplitCostApp() {
         }
         document.querySelector(".users-wrapper").innerHTML = userElements;
     }
+
+    this.displayExpenses = function() {
+        let expenseElements = '';
+        for(let expense of this.expenses) {
+            expenseElements += `
+                    <div class="expenses-item">
+                    <div>
+                        <span>${expense.description}</span>
+                        <span>$${expense.amount}</span>
+                    </div>
+                    <div class="date">${expense.date} </div>
+                </div>
+            `
+        }
+        document.querySelector('.expenses-wrapper').innerHTML = expenseElements;
+    }
+
+    this.addExpenses = function(event) {
+        event.preventDefault();
+        console.log('Adding expenses...');
+        const description = document.querySelector("#description").value;
+        const amount = document.querySelector("#amount").value;
+        if(description && amount) {
+            const expense = new Expense(description, amount);
+            this.expenses.unshift(expense);
+    
+            this.displayExpenses();
+            document.querySelector("form").reset();  
+            this.calculateUnsettledAmount();
+            this.displayUnsettledAmount();
+        }
+    }
+
+    this.calculateUnsettledAmount = function() {
+        let total = 0;
+        for(let expense of this.expenses) {
+            total = total + Number(expense.amount);
+        }
+        const unsettledAmount = total / this.users.length;
+        this.unsettledAmount = unsettledAmount;
+    }
+
+    this.addNewEventListener = function() {
+        document.querySelector("form").addEventListener('submit',  (event) => {
+            this.addExpenses(event);
+        });
+    }
 }
 
 const splitCostApp = new SplitCostApp();
+splitCostApp.addNewEventListener();
 splitCostApp.displayUnsettledAmount();
 splitCostApp.addUser('Alex', 'alex@gmail.com', '0420400168', 'https://randomuser.me/api/portraits/men/90.jpg');
-splitCostApp.displayUsers();
+splitCostApp.addUser('Jet', 'jet@gmail.com', '0420400162', 'https://randomuser.me/api/portraits/men/80.jpg');
+splitCostApp.addUser('Jacky', 'jacky@gmail.com', '0420400164', 'https://randomuser.me/api/portraits/men/70.jpg');
+
