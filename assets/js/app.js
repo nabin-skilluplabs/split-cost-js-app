@@ -42,7 +42,7 @@ function SplitCostApp() {
         let expenseElements = '';
         for(let expense of this.expenses) {
             expenseElements += `
-                    <div class="expenses-item">
+                    <div class="expenses-item ${expense.isSettled ? 'settled' : ''}">
                     <div>
                         <span>${expense.description}</span>
                         <span>$${expense.amount}</span>
@@ -73,10 +73,12 @@ function SplitCostApp() {
     this.calculateUnsettledAmount = function() {
         let total = 0;
         for(let expense of this.expenses) {
-            total = total + Number(expense.amount);
+            if(!expense.isSettled) {
+                total = total + Number(expense.amount);
+            }
         }
         const unsettledAmount = total / this.users.length;
-        this.unsettledAmount = unsettledAmount;
+        this.unsettledAmount = unsettledAmount.toFixed(2);
     }
 
     this.addNewEventListener = function() {
@@ -84,10 +86,26 @@ function SplitCostApp() {
             this.addExpenses(event);
         });
     }
+    this.addSettleNowEventListener = function() {
+        document.querySelector("#settleNowBtn").addEventListener("click", (event) => {
+            this.settleNow(event);
+        })
+    }
+
+    this.settleNow = function(event) {
+        console.log('Settling now!');
+        this.expenses = this.expenses.map(expense => {
+            return {...expense, isSettled: true};
+        });
+        this.displayExpenses();
+        this.calculateUnsettledAmount();
+        this.displayUnsettledAmount();
+    }
 }
 
 const splitCostApp = new SplitCostApp();
 splitCostApp.addNewEventListener();
+splitCostApp.addSettleNowEventListener();
 splitCostApp.displayUnsettledAmount();
 splitCostApp.addUser('Alex', 'alex@gmail.com', '0420400168', 'https://randomuser.me/api/portraits/men/90.jpg');
 splitCostApp.addUser('Jet', 'jet@gmail.com', '0420400162', 'https://randomuser.me/api/portraits/men/80.jpg');
