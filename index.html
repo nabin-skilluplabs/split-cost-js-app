@@ -29,7 +29,7 @@
             <button id="addNewUser">Add New User</button>
         </div>
 
-        <form>
+        <form onsubmit="return splitCostApp.addExpenses(event)">
             <div class="form-item">
                 <label>Description<span>*</span></label>
                 <input type="text" name="description" id="description">

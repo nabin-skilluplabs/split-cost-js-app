@@ -68,6 +68,7 @@ function SplitCostApp() {
             this.calculateUnsettledAmount();
             this.displayUnsettledAmount();
         }
+        return false;
     }
 
     this.calculateUnsettledAmount = function() {
@@ -81,11 +82,11 @@ function SplitCostApp() {
         this.unsettledAmount = unsettledAmount.toFixed(2);
     }
 
-    this.addNewEventListener = function() {
-        document.querySelector("form").addEventListener('submit',  (event) => {
-            this.addExpenses(event);
-        });
-    }
+    // this.addNewEventListener = function() {
+    //     document.querySelector("form").addEventListener('submit',  (event) => {
+    //         this.addExpenses(event);
+    //     });
+    // }
     this.addSettleNowEventListener = function() {
         document.querySelector("#settleNowBtn").addEventListener("click", () => {
             this.settleNow();
@@ -106,12 +107,14 @@ function SplitCostApp() {
         document.getElementById("addNewUser").addEventListener('click', () => {
             const randomValue = parseInt(Math.random() * 100);
             this.addUser('Alex', 'alex@gmail.com', '0420400168', `https://randomuser.me/api/portraits/men/${randomValue}.jpg`);
+            this.calculateUnsettledAmount();
+            this.displayUnsettledAmount();
         })
     }
 }
 
 const splitCostApp = new SplitCostApp();
-splitCostApp.addNewEventListener();
+// splitCostApp.addNewEventListener();
 splitCostApp.addSettleNowEventListener();
 splitCostApp.displayUnsettledAmount();
 splitCostApp.addUser('Alex', 'alex@gmail.com', '0420400168', 'https://randomuser.me/api/portraits/men/90.jpg');
